@@ -14,6 +14,7 @@ decode = False
 
 def create_rot_dict(offset, xcode=decode):
     """
+    ROT:
     rotate_index + offset (above), let's avoid IndexError,
     by subtracting 26 (length of the alphabet) from the the rotidx
     (ie... 28 - 26 = 2 << new index number)
@@ -30,6 +31,7 @@ def create_rot_dict(offset, xcode=decode):
 
 def encode_decode(message):
     """
+    ROT
     iterate over the provided message
     if character is a space or special character,
     just add it in place (there is no rotation)
@@ -45,6 +47,7 @@ def encode_decode(message):
 
 def convert(message, offset=13, xcode=encode):
     """
+    ROT:
     lower the message
     create the rotation dict with the provided offset
     send the message for conversion
@@ -56,10 +59,18 @@ def convert(message, offset=13, xcode=encode):
     return new_message
 
 def find_offset(message):
+    """
+    ROT:
+    Used to find which offset is used for ROT ciphers.
+    """
     for i in range(26):
         print(f"{i}:\t{convert(message, i)}")
 
 def create_keyword_ref(keyword):
+    """
+    Vignere:
+    We build a list of integers that represent the index of each letter in alphabet.
+    """
     keyword_ref = []
     for key in keyword:
         k = alphabet.find(key)
@@ -67,6 +78,10 @@ def create_keyword_ref(keyword):
     return keyword_ref
 
 def vigenere_encode(message, keyword):
+    """
+    Vigenere:
+    Function to encode a clear message
+    """
     vigenere_str = ""
     keyword_ref = create_keyword_ref(keyword)
     key_idx = 0
@@ -86,6 +101,11 @@ def vigenere_encode(message, keyword):
 
 
 def vigenere_decode(message, keyword):
+    """
+    Vigenere:
+    Could have turned this into a single function and made a reference to encode vs
+    decode, but I optimized this enough for now to move on to the next study piece.
+    """
     vigenere_str = ""
     keyword_ref = create_keyword_ref(keyword)
     key_idx = 0
@@ -107,9 +127,9 @@ if __name__ == '__main__':
 
     # rot
     message1 = "you were able to decode this? nice work! you are becoming quite the expert at cryptography!" # clear message (obvs)
-    message2 = "lbh jrer noyr gb qrpbqr guvf? avpr jbex! lbh ner orpbzvat dhvgr gur rkcreg ng pelcgbtencul!" # rot, offset = 13 Working
-    message3 = "fvb dlyl hisl av kljvkl aopz? upjl dvyr! fvb hyl iljvtpun xbpal aol lewlya ha jyfwavnyhwof!" # rot, offset = 7  Not working, need to do the math on this
-    message3 = "vlr tbob xyib ql abzlab qefp? kfzb tloh! vlr xob ybzljfkd nrfqb qeb bumboq xq zovmqldoxmev!" # rot, offset = 7  Not working, need to do the math on this
+    message2 = "lbh jrer noyr gb qrpbqr guvf? avpr jbex! lbh ner orpbzvat dhvgr gur rkcreg ng pelcgbtencul!" # rot, offset = 13 
+    message3 = "fvb dlyl hisl av kljvkl aopz? upjl dvyr! fvb hyl iljvtpun xbpal aol lewlya ha jyfwavnyhwof!" # rot, offset = 7  
+    message3 = "vlr tbob xyib ql abzlab qefp? kfzb tloh! vlr xob ybzljfkd nrfqb qeb bumboq xq zovmqldoxmev!" # rot, offset = 7  
 
     # print(create_rot_dict(13))
     # print(convert(message1, 23))
