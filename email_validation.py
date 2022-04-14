@@ -5,8 +5,8 @@ Will be useful for someone somewhere.
 
 def has_invalid_characters(string):
     valid = "abcdefghijklmnopqrstuvwxyz0123456789."
-    for l in string:
-        if l not in valid:
+    for char in string:
+        if char not in valid:
             return True
     return False
 
